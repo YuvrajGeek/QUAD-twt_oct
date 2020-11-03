@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block container %}
+{% if not user.is_authenticated %}
+<br><br>
+<div class="card" style="max-width: max-content;padding:18px; margin:auto">
+    <h1 style="font-weight:lighter">Register</h1>
+    <hr width="400px" align="left">
+
+    <div>
+        <form class="form-group" method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn btn-outline-primary" style="border-radius: 0%; width:100%">Register</button>
+        </form>
+    </div>
+</div><br>
+{% else %}
+<span class="text-muted" style="font-size: xx-large;font-weight:lighter; text-align:center; margin:auto">Logged in as
+    {{ user.username }}</h1>
+    {% endif %}
+    {% endblock %}

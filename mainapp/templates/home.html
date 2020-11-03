@@ -1,0 +1,153 @@
+{% extends 'base.html' %}
+{% block container %}
+<br><br>
+
+
+{% if user.is_authenticated %}
+<div class="quote">
+    <h1>{{ quote }}</h1>
+</div>
+
+<div class="buttons">
+    <hr>
+    <h5 style="font-weight: lighter;">Time to get stuff done</h5>
+    <hr>
+
+    <a href="{% url 'links' %}" class="btn btn-outline-primary"><i class="fa fa-link" aria-hidden="true"></i>
+        Links</a>
+    <a href="{% url 'videoconf' %}" class="btn btn-outline-primary"><i class="fa fa-video-camera"
+            aria-hidden="true"></i>
+        Video Conferences</a>
+    <a href="{% url 'todo' %}" class="btn btn-outline-primary"><i class="fa fa-check" aria-hidden="true"></i>
+        To-Do List</a>
+</div>
+<br><br><br>
+<div class="card-group">
+
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title"><strong>Links</strong></h5>
+            <p class="card-text">
+            <ol>
+                {% for link in links %}
+                {% if user.id == link.author.id %}
+                <li><a href="{{ link.link }}">{{ link.name }}</a></li>
+                {% endif %}
+                {% endfor %}
+                <br>
+                <p class="text-muted">No Urls...</p>
+            </ol>
+            </p>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title"><strong>Tasks</strong></h5>
+            <p class="card-text">
+            <ol>
+                {% for task in tasks %}
+                {% if user.id == task.author.id %}
+                <li><small>{{ task.title }} created on <span class="text-muted">{{ task.date_created }}</span></li>
+                </small><br>
+                {% endif %}
+                {% endfor %}
+                <p class="text-muted">No Tasks...</p>
+            </ol>
+            </p>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title"><strong>Video Conferences</strong></h5>
+            <p class="card-text">
+            <ol>
+                {% for conf in videoconf %}
+                {% if user.id == conf.author.id %}
+                <li><a href="{{ conf.link }}">{{ conf.name }}</a></li>
+                {% endif %}
+                {% endfor %}
+                <br>
+                <p class="text-muted">No Conferences...</p>
+            </ol>
+            </p>
+        </div>
+    </div>
+</div>
+<br><br>
+{% else %}
+<div class="quote">
+    <h1>{{ quote }}</h1>
+    <hr>
+    <a class="btn btn-lg btn-outline-primary" style="font-family: 'Work Sans';" href="{% url 'register' %}">Get
+        Started!</a>
+    <hr>
+</div>
+
+<h4><strong>Here's what you'll get:</strong></h4>
+<h5>· Organized URLs</h5>
+<p class="text-muted">To make you stop check your history and bookmarking pages.</p>
+<h5>· Organized Video Conference Joining Links</h5>
+<p class="text-muted">To make you stop asking your friends for Joining Links. (and instead make them ask you!)</p>
+<h5>· An Editable To-Do List</h5>
+<p class="text-muted">To make you know your productivity.</p>
+<h5>· A quote every time you refresh the page.</h5>
+<p class="text-muted">Motivation is important!</p>
+<br>
+<br>
+<div class="container" style="text-align: center;">
+    <hr>
+    <h5>
+        Too lazy to click on buttons ?
+    </h5>
+    <h1>
+        Get a quickie on the home page itself!
+    </h1><small class="text-muted">Here's what it looks like:</small>
+    <br>
+    <div class="card-group" style="text-align: left;">
+
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title"><strong>Links</strong></h5>
+                <p class="card-text">
+                <ol>
+                    <li><a href="#">Michael Stevens' Spooky Coincidences</a></li>
+                    <li><a href="#">David Muller's - Do we expand with the universe ?</a></li>
+                    <li><a href="#">Chemistry Notes</a></li>
+                </ol>
+                </p>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title"><strong>Tasks</strong></h5>
+                <p class="card-text">
+                <ol>
+                    <li>Get Emma's Dress Done.</li>
+                    <li>Get the homework done, or take a visit to heavens.</li>
+                    <li>Get the groceries for the week.</li>
+                </ol>
+                </p>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title"><strong>Video Conferences</strong></h5>
+                <p class="card-text">
+                <ol>
+                    <li><a href="#">David's Conference on Importance of Goal Setting</a></li>
+                    <li><a href="#">Meet Emma's Family</a></li>
+                    <li><a href="#">Mathematics Class - Mr. Ebright</a></li>
+
+                </ol>
+                </p>
+            </div>
+        </div>
+
+    </div><br>
+    <h4>Need More? Everyone Does!</h4>
+    <hr>
+    <p>More Coming Up by December 2020 in v1.1</p>
+</div>
+{% endif %}
+<br><br><br>
+{% endblock %}

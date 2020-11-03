@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block container %}
+{% if user.id == item.author.id %}
+<form method="POST" action="" style="padding-top: 25px;">
+    <h1>Confirm Delete:</h1>
+    {% csrf_token %}
+    <input type="submit" class="btn btn-outline-danger" name="Confirm" value="Delete">
+</form>
+{% else %}
+<br><br>
+<h1 style="padding-top: 42px"><strong style="font-size: 66px">404</strong> you know, life sometimes goes off track.</h1>
+{% endif %}
+{% endblock %}
