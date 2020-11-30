@@ -4,3 +4,4 @@ from .models import *
 admin.site.register(Links)
 admin.site.register(VideoConfLinks)
 admin.site.register(Task)
+admin.site.register(Question)
