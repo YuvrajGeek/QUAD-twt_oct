@@ -1,5 +1,5 @@
 from django import forms
-from .models import Links, VideoConfLinks, Task
+from .models import Links, VideoConfLinks, Task, Question, Answer
 
 
 class LinkForm(forms.ModelForm):
@@ -32,4 +32,23 @@ class TodoForm(forms.ModelForm):
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Task Name...'}),
             'author': forms.TextInput(attrs={'class': 'form-control', 'id': 'username', 'value': '', 'type': 'hidden'}),
+        }
+
+class QuestionForm(forms.ModelForm):
+    class Meta:
+        model = Question
+        fields = ('title', 'author')
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-control','placeholder': 'Question'}),
+            'author': forms.TextInput(attrs={'id': 'username', 'type': 'hidden'}),
+        }
+
+class AnswerForm(forms.ModelForm):
+    class Meta:
+        model = Answer
+        fields = ('content', 'question', 'writer')
+        widgets = {
+            'content': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Answer Here'}),
+            'question': forms.TextInput(attrs={'id': 'question', 'type': 'hidden'}),
+            'writer': forms.TextInput(attrs={'id': 'username', 'type': 'hidden'}),             
         }
