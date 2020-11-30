@@ -32,3 +32,21 @@ class Task(models.Model):
 
     def __str__(self):
         return self.title + " | " + str(self.date_created) + " | " + str(self.complete)
+
+
+class Question(models.Model):
+    title = models.CharField(max_length=1024)
+    author = models.ForeignKey(User, on_delete = models.CASCADE)
+    time_posted = models.DateTimeField(auto_now_add = True)
+
+    def __str__(self):
+        return self.title + "  by  " + str(self.author)
+
+class Answer(models.Model):
+    content = models.TextField()
+    question = models.ForeignKey(Question, related_name='answers', on_delete=models.CASCADE)
+    writer = models.ForeignKey(User, on_delete = models.CASCADE)
+    time_posted = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return str(self.writer) + '  answered  ' +  str(self.question)
