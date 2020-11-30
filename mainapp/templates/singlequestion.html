@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block container %}
+<div class="linkform">
+	{% if user.is_authenticated %}
+    <button type="button" class="btn btn-outline-primary addlink" data-toggle="modal" data-target="#exampleModal">
+        <i class="fa fa-plus" aria-hidden="true"></i> Add Answer
+    </button>
+    {% else %}
+    <a href='{% url "login" %}' class="btn btn-outline-primary addlink"><i class="fa fa-plus" aria-hidden="true"></i> Add Answer</a>
+    {% endif %}
+    <br><br>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Answer:</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <form method="POST">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <button class="btn btn-info" style="width: 100%;">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+	<small class="text-muted">
+		{{ question.author }} on {{ question.time_posted }}
+	</small>
+	<h1><strong>{{ question.title }}</strong></h1>
+</div>
+<br><br>
+{% if question.answers.all %}
+<h3>Answers ({{ question.answers.all.count }}):</h3>
+	{% for answer in question.answers.all %}
+	<div class="card" style="padding: 25px;">
+		<small class="text-muted">
+			{{ answer.writer }} on {{ answer.time_posted }}
+		</small>
+		<p>{{ answer.content }}</p>
+	</div>
+	<br>
+	{% endfor %}
+{% else %}
+<hr>
+<h1 class="text-muted">No answers yet.</h1>
+{% endif %}
+
+<script type="text/javascript">
+  var name = '{{ user.id }}';
+  document.getElementById('username').value = name;
+  var question = '{{ question.pk }}'
+  document.getElementById('question').value = question
+</script>
+
+{% endblock %}

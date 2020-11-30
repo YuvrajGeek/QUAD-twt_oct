@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block container %}
+<!-- Button trigger modal -->
+{% if user.is_authenticated %}
+<div class="linkform">
+    <button type="button" class="btn btn-outline-primary addlink" data-toggle="modal" data-target="#exampleModal">
+        <i class="fa fa-plus" aria-hidden="true"></i> Add Question
+    </button>
+    <br><br>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">New Question</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <form method="POST">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <button class="btn btn-info" style="width: 100%;">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% if questions %}
+<hr width="450px" align="left">
+{% for question in questions %}
+<div class="linklist">
+    <div class="col">
+        <div class="list-group-item list-group-item-action list-group" id="list-tab" role="tablist">
+        	<small class="text-muted">{{ question.author }} on {{ question.time_posted }}</small>
+        	<h3 style="font-weight: bolder;">
+            <a class="link" id="list-settings-list" style="text-decoration: none;" href='{% url "singlequestion" question.pk %}'
+                target="blank" role="tab" aria-controls="settings">{{ question.title }}</a>
+            </h3>
+
+        </div>
+    </div>
+</div>
+{% endfor %}
+<br><br><br>
+{% else %}
+<p class="savedlinks" style="font-size: xx-large;">You've not saved any question yet <span
+        style="font-size: larger;">:(</span></p>
+<hr>
+<p class="savedlinks" style="font-size: larger;"> Add a question by clicking the "Add question" button</p>
+
+{% endif %}
+<script type="text/javascript">
+    var name = '{{ user.id }}';
+    document.getElementById('username').value = name;
+</script>
+{% else %}
+<h1 style="padding-top:15px;">
+    Sign Up to get started!
+</h1>
+<hr>
+<a class="btn btn-outline-info" style="margin: auto; text-align:center; border-radius:0%"
+    href="{% url 'register' %}">Sign Up</a><br><br>
+<p class="text-muted">Already a proud user ? <a href="{% url 'login' %}">Login</a></p>
+{% endif %}
+{% endblock %}
