@@ -11,7 +11,9 @@ urlpatterns = [
     path('delete_link/<int:pk>', views.deleteLink, name='delete_link'),
     path('delete_video_conf/<int:pk>',
          views.deleteVideoConfLink, name='delete_video_conf'),
-    path('mambers/', include('django.contrib.auth.urls')),
+    path('members/', include('django.contrib.auth.urls')),
     path('members/register/', UserRegisterView.as_view(), name='register'),
-    path('accounts/profile/', views.home, name='home')
+    path('accounts/profile/', views.home, name='home'),
+    path('questions/', views.MyQuestions, name='questions'),
+    path('questions/<int:pk>', views.singlequestionview, name='singlequestion')
 ]
