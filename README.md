@@ -10,10 +10,4 @@ Be sure to run the  following commands for the app to work properly:
 
 Here are some screenshots for people who are too lazy to set up:
 
-For suggestions, my discord: <strong>yuvraj#3442</strong>
- 
-<img src='scr1.png'>
-<img src='scr2.png'>
-Look carefully ;)  
-<img src='scr3.png'>
-<img src='scr4.png'>
+For suggestions, my discord: <strong>Plusk#3442</strong>
