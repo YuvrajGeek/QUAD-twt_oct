@@ -9,8 +9,8 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
         integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <title>MultiProd</title>
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>QUAD</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300&display=swap');
@@ -59,6 +59,7 @@
 
         .linkform {
             padding-top: 25px;
+            color: black;
         }
 
         .links {
@@ -78,9 +79,6 @@
             transition: all 0.2s ease-in-out 0s;
         }
 
-        .link:hover {
-            border-radius: 25px;
-        }
 
         .addlink {
             border-radius: 25px;
@@ -89,12 +87,35 @@
         .platformimg {
             max-width: 60px;
         }
+
+        .bg-dark {
+            background-color: rgb(21, 29, 31);
+            color: white;
+            
+        }
+
+        .card {
+            background-color: transparent;
+        }
+
+        .nav {
+            border-bottom: 1px solid white;
+        }
+
+        #list-tab {
+            background-color: transparent;
+        }
+
+        footer {
+            border-top: 1px solid black;
+        }
     </style>
 </head>
 
-<body>
+<body class="bg-dark">
     <nav class="navbar navbar-expand-lg navbar-dark sticky-top" style="background-color: #313351;">
-        <a class="navbar-brand" href="{% url 'home' %}"><strong>QUAD</strong><small class="text-muted">v1.0Test</small></a>
+        <a class="navbar-brand" href="{% url 'home' %}"><strong>QUAD</strong><small
+                class="text-muted">v1.0Test</small></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -117,11 +138,20 @@
                             class="fa fa-video-camera" aria-hidden="true"></i>
                         Video Conferences</a>
                 </li>
+
                 <li class="nav-item active">
                     <a class="nav-link btn btn-outline-primary" href="{% url 'todo' %}"><i class="fa fa-check"
                             aria-hidden="true"></i>
                         To Do List</a>
                 </li>
+                <li class="nav-item active">
+                    <a class="nav-link btn btn-outline-primary" href="{% url 'questions' %}"><i
+                            class="fa fa-question" aria-hidden="true"></i>
+                        QnA Forum</a>
+                </li>
+                <button onclick="myFunction()" class="btn btn-outline-secondary my-2 my-sm-0 formbtn">Toggle dark
+                    mode</button>
+
             </ul><br>
             {% if user.is_authenticated %}
 
@@ -157,7 +187,7 @@
     </div>
     <!-- Footer -->
     <br><br><br>
-    <footer class="page-footer font-small bg-dark pt-4" style="color:white">
+    <footer class="page-footer font-small  pt-4" style="color:black background-color: transparent;">
 
         <!-- Footer Links -->
         <div class="container-fluid text-center text-md-left">
@@ -176,10 +206,8 @@
                     <p>
                     <ul>
                         <li>YouTube Popovers.</li>
-                        <li>Community Posts.</li>
-                        <li>Dark Mode.</li>
                         <li>Custom Icons for URLs.</li>
-                        <li>Minor Tweaks.</li>
+                        
                     </ul>
                     </p>
 
@@ -194,8 +222,8 @@
         <!-- Footer Links -->
 
         <!-- Copyright -->
-        <div class="footer-copyright text-center py-3">A submission to Tech With Tim, October Code Jam by <a
-                href='https://twtcodejam.net/timathon/team/220/'>Yuvraj's Team.</a>
+        <div class="footer-copyright text-center py-3 sticky-bottom">A submission to Tech With Tim, October Code Jam by
+            <a href='https://twtcodejam.net/timathon/team/220/'>Yuvraj's Team.</a>
         </div>
         <!-- Copyright -->
 
@@ -210,7 +238,14 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
         integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
         crossorigin="anonymous"></script>
-
+    <script>
+        function myFunction() {
+            var element = document.body;
+            element.classList.toggle("bg-dark");
+            var footer = document.footer
+            footer.classList.toggle('bg-dark')
+        }
+    </script>
 
 </body>
 
