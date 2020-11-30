@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 import random
-from .forms import LinkForm, VideoConfLinksForm, TodoForm
-from .models import Links, VideoConfLinks, Task
+from .forms import LinkForm, VideoConfLinksForm, TodoForm, QuestionForm, AnswerForm
+from .models import Links, VideoConfLinks, Task, Question, Answer
 from django.views import generic
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
@@ -16,6 +16,7 @@ def home(request):
     links = Links.objects.all()
     tasks = Task.objects.all()
     videoconf = VideoConfLinks.objects.all()
+
     quotes = [
         'Focus on being productive instead of being busy.',
         'Your goal is no longer to get more done, but rather to have less to do.',
@@ -28,6 +29,7 @@ def home(request):
     ]
     length = len(quotes)
     selected_quote = quotes[random.randint(0, length-1)]
+
     context = {'quote': selected_quote, 'links': links,
                'tasks': tasks, 'videoconf': videoconf}
     return render(request, 'home.html', context=context)
@@ -120,6 +122,28 @@ def deleteTask(request, pk):
     context = {'item': item}
     return render(request, 'delete.html', context)
 
+
+def MyQuestions(request):
+    questions = Question.objects.all().order_by('-time_posted')
+    form = QuestionForm()
+    if request.method == 'POST':
+        form = QuestionForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/questions')
+    context = {'form': form, 'questions': questions}
+    return render(request, 'questions.html', context)
+
+def singlequestionview(request, pk):
+    question = Question.objects.get(id=pk)
+    form = AnswerForm()
+    if request.method == 'POST':
+        form = AnswerForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect(f'/questions/{pk}')
+    context = {'question': question, 'form': form}
+    return render(request, 'singlequestion.html', context)
 
 class UserRegisterView(generic.CreateView):
     form_class = UserCreationForm
