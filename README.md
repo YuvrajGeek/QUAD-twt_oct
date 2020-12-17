@@ -8,6 +8,4 @@ Be sure to run the  following commands for the app to work properly:
 2. `python manage.py migrate`
 3. `python manage.py runserver`
 
-Here are some screenshots for people who are too lazy to set up:
-
 For suggestions, my discord: <strong>Plusk#3442</strong>
